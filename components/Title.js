@@ -1,4 +1,4 @@
-import { Text,StyleSheet } from "react-native";
+import { Text,StyleSheet, Platform } from "react-native";
 
 
 function Title({children}){
@@ -14,8 +14,16 @@ const styles = StyleSheet.create({
         fontSize: 24,
         color:'white',
         textAlign:'center',
-        borderWidth: 2,
-        borderColor:'white',
-        padding: 12
+
+        //platform specific code
+        //can also create new files Title.android.js and Tit;e.ios.js
+        //no need to import two files when using them since the components should
+        //still be exported as Title
+        borderWidth: Platform.OS === 'android' ? 2 : 0,
+        borderColor: Platform.select({ios: 'beige', android:'white'}),
+
+        padding: 12,
+        maxWidth: '80%',
+        width: 300
     }
 })

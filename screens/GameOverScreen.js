@@ -1,12 +1,30 @@
-import { Text, Image, View, StyleSheet } from "react-native"
+import { Text, Image, View, StyleSheet, useWindowDimensions } from "react-native"
 import PrimaryButton from "../components/PrimaryButton"
 import Title from "../components/Title"
 import Colors from "../constants/colors"
 function GameOverScreen({roundsNumber, userNumber, onStartNewGame}){
+    const { width, height } = useWindowDimensions();
+
+    let imageSize = 300;
+    
+    if(width < 380){
+        imageSize = 150;
+    }
+
+    if(height < 400){
+        imageSize = 80;
+    }
+    
+    const imageStyle = {
+        width: imageSize,
+        height: imageSize,
+        borderRadius: imageSize / 2
+    }
+
     return (
     <View style = {styles.rootContainer}>
         <Title>Game Over!</Title>
-        <View style={styles.imageContainer}>
+        <View style={[styles.imageContainer, imageStyle]}>
         <Image style={styles.image} source={require('../assets/images/success.png')}></Image>
         </View>
         <Text style={styles.summaryText}>Your phone used <Text style={styles.highlight}>{roundsNumber}</Text> round to guess the 
@@ -16,6 +34,9 @@ function GameOverScreen({roundsNumber, userNumber, onStartNewGame}){
 )}
 export default GameOverScreen
 
+
+// const deviceWidth = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
     rootContainer:{
         flex: 1,
@@ -24,9 +45,9 @@ const styles = StyleSheet.create({
         alignItems:'center'
     },
     imageContainer:{
-        borderRadius: 150,
-        width:300,
-        height:300,
+        // borderRadius: deviceWidth < 380 ? 75 : 150, 
+        // width: deviceWidth < 380 ? 150 : 300,
+        // height: deviceWidth < 380 ? 150 : 300,
         borderWidth: 3,
         borderColor: Colors.primary800,
         overflow: 'hidden', //act as a musk so that it looks like a circle, the outside part just gets hidden

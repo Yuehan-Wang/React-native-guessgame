@@ -1,4 +1,4 @@
-import { StatusBar, StyleSheet,ImageBackground, View } from 'react-native';
+import { StyleSheet,ImageBackground, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import StartGameScreen from './screens/StartGameScreen';
 import GameOverScreen from './screens/GameOverScreen';
@@ -7,6 +7,7 @@ import Colors from './constants/colors';
 import { useState } from 'react';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
+import { StatusBar } from 'expo-status-bar';
 
 export default function App() {
   const [userNumber, setUserNumber] = useState()
@@ -46,8 +47,9 @@ export default function App() {
     screen = <GameOverScreen roundsNumber={guessRounds} userNumber={userNumber} onStartNewGame={startNewGameHandler}/>
   }
 
-  return (
-  <LinearGradient colors={[Colors.primary700,Colors.accent500]} style = {styles.rootScreen}>
+  return (<>
+  <StatusBar style='light' />
+       <LinearGradient colors={[Colors.primary700,Colors.accent500]} style = {styles.rootScreen}>
     <ImageBackground 
       source={require('./assets/images/background.png')} 
       resizeMode='cover'
@@ -57,7 +59,11 @@ export default function App() {
       
       {/* render different screen based on input value, interesting */}
     </ImageBackground>
-  </LinearGradient>)
+  </LinearGradient></>
+    
+
+  )
+ 
 }
 
 const styles = StyleSheet.create({
